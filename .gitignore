@@ -1,0 +1,10 @@
+Server/.gradle
+Server/.idea
+Server/build
+Server/gradle
+Server/logs
+Client/.gradle
+Client/.idea
+Client/build
+Client/gradle
+Client/logs

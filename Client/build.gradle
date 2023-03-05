@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group 'xor7studio.lightcat'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+dependencies {
+    implementation 'ch.qos.logback:logback-classic:1.4.5'
+}
+
+shadowJar {
+    baseName = 'LightCat-Client'
+    version = 'Snapshot-0.0.1'
+    classifier = null
+    manifest {
+        attributes 'Main-Class': 'xor7studio.lightcat.Main'
+    }
+}

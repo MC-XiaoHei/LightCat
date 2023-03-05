@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://maven.restlet.talend.com"
+    }
+}
+
+group 'xor7studio.lightcat'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+dependencies {
+    implementation 'io.javalin:javalin:5.3.2'
+    implementation 'io.javalin.community.ssl:ssl-plugin:5.3.2'
+    implementation 'ch.qos.logback:logback-classic:1.4.5'
+    implementation 'net.jodah:expiringmap:0.5.10'
+    implementation 'org.jline:jline:3.22.0'
+    implementation 'org.restlet.jse:org.restlet:2.4.3'
+    implementation 'org.restlet.jse:org.restlet.ext.jackson:2.4.3'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'com.zaxxer:HikariCP:4.0.3'
+    implementation 'org.xerial:sqlite-jdbc:3.40.1.0'
+}
+
+shadowJar {
+    baseName = 'LightCat-Server'
+    version = 'Snapshot-0.0.1'
+    classifier = null
+    manifest {
+        attributes 'Main-Class': 'xor7studio.lightcat.Main'
+    }
+}
+
