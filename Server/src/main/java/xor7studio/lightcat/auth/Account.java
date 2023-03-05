@@ -8,6 +8,7 @@ public class Account {
     public String authServer;
     public String userId;
     public String bearerToken;
+    public int ID;
     @NotNull
     @Contract(pure = true)
     public static Account generate(String authServer,String username,String userId){

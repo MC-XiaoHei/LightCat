@@ -13,7 +13,9 @@ import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 
 public class AccountManager {
@@ -25,9 +27,20 @@ public class AccountManager {
     private static PrivateKey privateKey;
     private static PublicKey publicKey;
     public AccountManager(){
-        try{
+        try (Statement statement = getConnection().createStatement()){
             privateKey = getPrivateKey();
             publicKey = getPublicKey();
+            ResultSet resultSet = statement.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='users';");
+            if(!resultSet.next()){
+                statement.execute("""
+            CREATE TABLE users{
+                id INTEGER PRIMARY KEY,
+                username VARCHAR(255),
+                authServer VARCHAR(255),
+                userId VARCHAR(255),
+                bearerToken VARCHAR(255)
+            }""");
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
